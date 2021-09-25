@@ -1,0 +1,40 @@
+{
+  "name": "skylark-domx-plugins-groups",
+  "description": "The skylark list plugin library.",
+  "version": "0.9.0",
+  "keywords": [
+    "skylark",
+    "skylarkui",
+    "swt",
+    "widget"
+  ],
+  "homepage": "https://github.com/skylark-domx/skylark-domx-plugins-groups/",
+  "author": "Hudaokeji, Inc.",
+  "scripts": {
+    "build": "slib build ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skylark-widgets/skylark-domx-plugins-groups.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skylark-widgets/skylark-domx-plugins-groups/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "skylark-devices-points": "git+https://github.com/skylark-devices/skylark-devices-points.git",
+    "skylark-domx": "git+https://github.com/skylark-domx/skylark-domx.git",
+    "skylark-domx-plugins-base": "git+https://github.com/skylark-domx-plugins/skylark-domx-plugins-base.git",
+    "skylark-domx-plugins-dnd": "git+https://github.com/skylark-domx-plugins/skylark-domx-plugins-dnd.git",
+    "skylark-domx-plugins-interact": "git+https://github.com/skylark-domx-plugins/skylark-domx-plugins-interact.git",
+    "skylark-domx-plugins-toggles": "git+https://github.com/skylark-domx-plugins/skylark-domx-plugins-toggles.git",
+    "skylark-langx": "git+https://github.com/skylark-langx/skylark-langx.git"
+  },
+  "devDependencies": {
+    "skylark-bootstrap3": "git+https://github.com/skylark-integration/skylark-bootstrap3.git",
+    "skylark-domx-plugins-players": "git+https://github.com/skylark-domx-plugins/skylark-domx-plugins-players.git"
+  },
+  "engines": {
+    "node": ">=0.10.1"
+  }
+}

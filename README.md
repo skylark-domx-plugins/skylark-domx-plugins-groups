@@ -1,2 +1,2 @@
-# skylark-domx-plugins-groups
-The skylark group plugins library for dom api extension
+# skylark-domx-lists
+The skylark list  library for dom api extension.
