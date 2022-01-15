@@ -133,6 +133,7 @@ define('skylark-domx-plugins-groups/groups',[
             }
           },
 
+          data : {},
           //active : 0,
 
           //A collection or function that is used to generate the content of the group 
@@ -182,6 +183,10 @@ define('skylark-domx-plugins-groups/groups',[
             });
 
             this.resetItems();
+
+            if (this.options.data.items) {
+                this.addItems(this.options.data.items);
+            }
 
             ///if (this.options.item.multiSelect) {
             ///  this.selected = [];
@@ -261,6 +266,17 @@ define('skylark-domx-plugins-groups/groups',[
           return  this._$items.filter(`.${selectedClass}`);
         },
 
+        setSelectedItems : function(items, force) {
+            if (!langx.isArray(items)) {
+                items = [items];
+            }
+
+            this.clearSelectedItems();
+            for (var i = 0; i < items.length; i++) {
+              this.selectOneItem(items[i]);
+            }
+        },
+        
         getActiveItem : function() {
           let activeClass = this.options.item.classes.active,
               $activeItem = this._$items.filter(`.${activeClass}`);
@@ -288,6 +304,32 @@ define('skylark-domx-plugins-groups/groups',[
             this.unselectOneItem(valueOrIdx);
           } else {
             this.selectOneItem(valueOrIdx);
+          }
+        },
+
+
+        addItems : function(items) {
+            let index = this.getItemsCount();
+            for (var i=0; i<items.length;i++) {
+              this.addItem(index++,items[i]);
+            }
+            this.resetItems();
+        },
+
+        addItem : function(index,itemData) {
+          let itemHtml = this.renderItemHtml(itemData),
+              baseClass = this.options.item.classes.base;
+
+
+          let $item = $(itemHtml);
+          if (baseClass) {
+            $item.addClass(baseClass);
+          }
+
+          if (this._$itemsContainer) {
+            this._$itemsContainer.append($item);
+          } else {
+            this.$().append($item);
           }
         },
 
@@ -335,16 +377,12 @@ define('skylark-domx-plugins-groups/groups',[
     options: {
         item : {
           selectable: true
-        },
-        data : {}
+        }
     },
 
     _construct: function (elm, options) {
       this.overrided(elm, options);
 
-      if (this.options.data.items) {
-          this.addItems(this.options.data.items);
-      }
     }
 
   });
@@ -730,7 +768,6 @@ define('skylark-domx-plugins-groups/sortable',[
                     }
                     dragging = null;                
                 }
-
             });
 
             
@@ -793,28 +830,21 @@ define('skylark-domx-plugins-groups/sortable',[
 
     options: {
         alignment: 'left',
-        infiniteScroll: false,
         itemRendered: null,
         noItemsHTML: 'no items found',
-        selectable: false,
-        viewClass: "repeater-tile",
-        template : '<div class="clearfix repeater-tile" data-container="true" data-infinite="true" data-preserve="shallow"></div>',
         item : {
+            selector : "div.thumbnail",
             template: '<div class="thumbnail"><img height="75" src="<%= href %>" width="65"><span><%= title %></span></div>',
-            selectable : true
+            selectable : true,
+            classes : {
+              base : "thumbnail"
+            }
         },
         renderItem : null
     },
 
     _construct: function (elm, options) {
       this.overrided(elm, options);
-
-      this._renderItem = langx.template(this.options.item.template);
-
-      for (var i=0;i<options.items.length;i++) {
-        var itemHtml = this._renderItem(options.items[i]);
-        this._velm.append($(itemHtml));
-      }
     }
 
   });

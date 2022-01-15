@@ -101,7 +101,6 @@ define([
                     }
                     dragging = null;                
                 }
-
             });
 
             

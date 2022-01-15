@@ -37,6 +37,7 @@
             }
           },
 
+          data : {},
           //active : 0,
 
           //A collection or function that is used to generate the content of the group 
@@ -86,6 +87,10 @@
             });
 
             this.resetItems();
+
+            if (this.options.data.items) {
+                this.addItems(this.options.data.items);
+            }
 
             ///if (this.options.item.multiSelect) {
             ///  this.selected = [];
@@ -165,6 +170,17 @@
           return  this._$items.filter(`.${selectedClass}`);
         },
 
+        setSelectedItems : function(items, force) {
+            if (!langx.isArray(items)) {
+                items = [items];
+            }
+
+            this.clearSelectedItems();
+            for (var i = 0; i < items.length; i++) {
+              this.selectOneItem(items[i]);
+            }
+        },
+        
         getActiveItem : function() {
           let activeClass = this.options.item.classes.active,
               $activeItem = this._$items.filter(`.${activeClass}`);
@@ -192,6 +208,32 @@
             this.unselectOneItem(valueOrIdx);
           } else {
             this.selectOneItem(valueOrIdx);
+          }
+        },
+
+
+        addItems : function(items) {
+            let index = this.getItemsCount();
+            for (var i=0; i<items.length;i++) {
+              this.addItem(index++,items[i]);
+            }
+            this.resetItems();
+        },
+
+        addItem : function(index,itemData) {
+          let itemHtml = this.renderItemHtml(itemData),
+              baseClass = this.options.item.classes.base;
+
+
+          let $item = $(itemHtml);
+          if (baseClass) {
+            $item.addClass(baseClass);
+          }
+
+          if (this._$itemsContainer) {
+            this._$itemsContainer.append($item);
+          } else {
+            this.$().append($item);
           }
         },
 

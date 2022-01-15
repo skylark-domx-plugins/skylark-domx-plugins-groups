@@ -17,16 +17,12 @@
     options: {
         item : {
           selectable: true
-        },
-        data : {}
+        }
     },
 
     _construct: function (elm, options) {
       this.overrided(elm, options);
 
-      if (this.options.data.items) {
-          this.addItems(this.options.data.items);
-      }
     }
 
   });
